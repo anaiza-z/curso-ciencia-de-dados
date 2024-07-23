@@ -1,0 +1,157 @@
+```{r}
+#histograma
+trees
+hist(trees$Height)
+hist(trees$Height, main="Árvores", ylab = "Frequência", xlab = "Altura", col = "pink")
+hist(trees$Height, main = "Árvores", ylab = "Frequência", xlab = "Altura", col = "pink", density = 50, breaks = 20)
+
+```
+```{r}
+#densidade
+densidade = density(trees$Height)
+plot(densidade)
+```
+```{r}
+#densidade + histograma
+hist(trees$Height, main = NULL, xlab = NULL, ylab = NULL)
+par(new=TRUE) #informa que a prómixa impressão será uma sobreposição
+plot(densidade)
+```
+```{r}
+#dispersão 
+plot(trees$Girth, trees$Volume)
+plot(trees$Girth, trees$Volume, main = "Árvores")
+plot(trees$Girth, trees$Volume, main = "Árvores", ylab = "Circunferência", xlab = "Volume", col = "blue")
+#pch muda o elemento gráfico
+plot(trees$Girth, trees$Volume, main = "Árvores", ylab = "Circunferência", xlab = "Volume", col = "blue", pch = 17) 
+#type muda o tipo
+plot(trees$Girth, trees$Volume, main = "Árvores", ylab = "Circunferência", xlab = "Volume", col = "blue", type = "l") 
+plot(trees$Girth, trees$Volume, main = "Árvores", ylab = "Circunferência", xlab = "Volume", col = "blue", type = "b") 
+#jitter diminui sobreposição
+plot(jitter(trees$Girth), trees$Volume, main = "Árvores", ylab = "Circunferência", xlab = "Volume", col = "blue")
+```
+```{r}
+CO2
+plot(CO2$conc, CO2$uptake, pch = 20, col = CO2$Treatment)
+legend("bottomright", legend = c("nonchilled", "chilled"), cex=1, fill = c("black", "red")) #posição da legenda, nomes, tamanho, cores da legenda
+```
+```{r}
+plot(trees)
+#divisão de telas
+split.screen(figs = c(2,2)) #tela dividida em 4
+screen(1)
+plot(trees$Girth, trees$Volume)
+screen(2)
+plot(trees$Girth, trees$Height)
+screen(3)
+plot(trees$Height, trees$Volume)
+screen(4)
+hist(trees$Volume)
+close.screen(all=TRUE)
+```
+boxplot
+```{r}
+boxplot(trees$Volume, main = "Árvores", xlab = "Volume")
+boxplot(trees$Volume, main = "Árvores", xlab = "Volume", col = "pink", horizontal = TRUE)
+boxplot(trees$Volume, main = "Árvores", xlab = "Volume", col = "pink", outline = F)
+#notch é uma forma gráfica diferente, fazendo um talho na mediana
+boxplot(trees$Height, main = "Árvores", xlab = "Altura", col = "pink", notch = TRUE)
+#visualizar dados do gráfico
+boxplot.stats(trees$Height)
+#lê apenas uma informação 
+boxplot.stats(trees$Height)$conf
+#vários gráficos
+boxplot(trees)
+```
+agregação
+```{r}
+InsectSprays
+spray = aggregate(.~spray, data = InsectSprays, sum)
+spray
+```
+gráfico de barras
+```{r}
+barplot(spray$count, col = gray.colors(6), xlab = "Spray", ylab = "Total", names.arg = spray$spray)
+box()
+```
+gráfico de pizza
+```{r}
+pie(spray$count, labels = spray$spray, main = "Spray", col = c(2:7))
+```
+
+```{r}
+#com legenda
+pie(spray$count, labels = NA, main = "Spray", col = c(2:7))
+legend("bottomright", legend = spray$spray, cex = 1, fill = c(2:7))
+```
+tabelas
+```{r}
+install.packages("stargazer")
+library(stargazer)
+```
+```{r}
+#formato latex
+stargazer(iris)
+#html
+stargazer(iris, type = "html")
+#texto
+stargazer(iris, type = "text")
+#salvar em disco
+stargazer(women, out = "women.tex", summary = FALSE)
+```
+```{r}
+library(lattice)
+```
+boxplot
+```{r}
+bwplot(trees$Volume)
+bwplot(trees$Volume, main = "Árvores", xlab = "Volume")
+```
+histograma
+```{r}
+#aspect é a proporção, nint é o número de quebras, type: percent, count, density
+histogram(trees$Volume, main = "Ávores", xlab = "Volume", aspect = 1, type = "percent", nint = 20)
+```
+histograma condicional
+```{r}
+chickwts
+histogram(chickwts$weight)
+#agregação dos dados
+aggregate(chickwts$weight, by=list(chickwts$feed), FUN=sum)
+#histograma condicional
+histogram(~weight | feed, data = chickwts)
+```
+gráfico de dispersão condicional
+```{r}
+CO2
+xyplot(CO2$conc ~ CO2$uptake)
+xyplot(CO2$conc ~ CO2$uptake | CO2$Type)
+xyplot(CO2$conc ~ CO2$uptake | CO2$Treatment, xlab = "Captação de CO2", ylab = "Concentação de CO2")
+```
+dotplot
+```{r}
+esoph
+dotplot(esoph$alcgp ~ esoph$ncontrols)
+dotplot(esoph$alcgp ~ esoph$ncontrols | esoph$tobgp)
+```
+matriz de dispersão
+```{r}
+splom(~CO2[4:5] | CO2$Type, CO2)
+```
+densidade condicional
+```{r}
+densityplot(CO2$conc)
+densityplot(~CO2$conc | CO2$Treatment)
+densityplot(~CO2$conc | CO2$Treatment, plot.points = FALSE)
+```
+gráfico 3D
+```{r}
+OrchardSprays
+cloud(decrease ~ rowpos * colpos, data = OrchardSprays)
+cloud(decrease ~ rowpos * colpos, groups = treatment, data = OrchardSprays)
+```
+level plot
+```{r}
+levelplot(Girth ~ Height * Volume, data = trees)
+```
+
