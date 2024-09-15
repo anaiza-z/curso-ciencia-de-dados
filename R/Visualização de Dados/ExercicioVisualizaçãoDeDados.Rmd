@@ -5,7 +5,8 @@ library("RColorBrewer")
 ```
 
 ```{r}
-dados = read.csv("C:/Users/anaiz/OneDrive/Documentos/todos os arquivos/12.Prática em R/dados/dados.csv", sep = ";", na.strings = "", stringsAsFactors = T)
+url <- "https://raw.githubusercontent.com/anaiza-z/curso-ciencia-de-dados/main/R/Visualização%20de%20Dados/dados.csv"
+dados = read.csv(url, sep = ";", na.strings = "", stringsAsFactors = T)
 summary(dados)
 head(dados)
 ```
