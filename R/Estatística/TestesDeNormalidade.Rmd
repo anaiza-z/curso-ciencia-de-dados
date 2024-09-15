@@ -1,0 +1,45 @@
+para obter o mesmo resultado posteriormente
+```{r}
+set.seed(123)
+```
+gerando 1000 variáveis normalmente distribuidas
+```{r}
+x = rnorm(1000)
+```
+gráfico QQ
+```{r}
+qqnorm(x)
+qqline(x)
+```
+p > 0,05 indica que os dados podem estar normalmente distribuídos 
+```{r}
+shapiro.test(x)
+```
+histograma com linha de densidade
+```{r}
+hist(x, main = "")
+par(new = TRUE) #gerar o próximo gráfico no mesmo plot
+plot(density(x), ylab = "", xlab = "", axes = F, lwd = 2.5)
+```
+
+## dados não normalmente distribuidos
+
+gerando 1000 observações de duas variáveis aleatórias multivariadas não normais com as seguintes características:
+
+A primeira variável tem média 1, variância 10, assimetria 5, e curtose 3.
+A segunda variável tem média 2, variância 5, assimetria 2, e curtose 3.
+As duas variáveis têm uma covariância de 2.
+```{r}
+library("semTools")
+m = mvrnonnorm(1000, c(1, 2), matrix(c(10, 2, 2, 5), 2, 2), skewness = c(5, 2), kurtosis = c(3, 3))
+qqnorm(m)
+qqline(m)
+```
+```{r}
+shapiro.test(m)
+```
+```{r}
+hist(m, main = "")
+par(new = TRUE) 
+plot(density(m), ylab = "", xlab = "", axes = F, lwd = 2.5)
+```
