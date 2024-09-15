@@ -1,0 +1,41 @@
+```{r}
+jogadores = c(40000, 18000, 12000, 250000, 30000, 140000, 300000, 40000, 800000)
+```
+média
+```{r}
+mean(jogadores)
+```
+mediana
+```{r}
+median(jogadores)
+```
+quartis
+```{r}
+quartis = quantile(jogadores)
+quartis
+```
+3º quartil
+```{r}
+quartis[4]
+```
+desvio padrão
+```{r}
+sd(jogadores)
+```
+resumo
+```{r}
+summary(jogadores)
+```
+##medias a longo prazo 
+
+amostra pequena
+```{r}
+x = sample(1:6, 6, replace = T)
+mean(x)
+```
+amostra grande
+```{r}
+x = sample(1:6, 10000, replace = T)
+mean(x)
+```
+
