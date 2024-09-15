@@ -1,0 +1,61 @@
+
+```{r}
+#carregar arquivo csv
+dados = read.csv("C:/Users/anaiz/OneDrive/Documentos/tempo.csv", sep = ";", na.strings = "", stringsAsFactors = T)
+#verificar modelo dos dados
+head(dados)
+#resumo
+summary(dados) 
+```
+corrigir aparencia (fora do padrão)
+```{r}
+#verificar o resumo de aparencia
+summary(dados$Aparencia)
+#substituir despadrozinado pela moda
+dados[dados$Aparencia == "menos",]$Aparencia = "chuva"
+#verificar o resumo novamente
+summary(dados$Aparencia)
+#remover os fatores inuteis 
+dados$Aparencia = factor(dados$Aparencia)
+#verificar o resumo novamente
+summary(dados$Aparencia)
+```
+corrigir temperatura (fora do limite)
+```{r}
+#verificar o resumo de aparencia
+summary(dados$Temperatura)
+#verificar as temperaturas fora do limite
+dados[dados$Temperatura < -130 | dados$Temperatura > 130,]$Temperatura
+#verificar a mediana
+median(dados$Temperatura)
+#substituir as temperaturas anormais pela mediana
+dados[dados$Temperatura < -130 | dados$Temperatura > 130,]$Temperatura = median(dados$Temperatura)
+#verificar se ainda tem temperatura anormal
+dados[dados$Temperatura < -130 | dados$Temperatura > 130,]$Temperatura
+#verificar o resumo novamente
+summary(dados$Temperatura)
+```
+corrigir umidade (NA e fora do limite)
+```{r}
+#verificar o resumo de umidade
+summary(dados$Umidade)
+dados[dados$Umidade < 0 | dados$Umidade > 100,]$Umidade
+#remover NA 
+dados[is.na(dados$Umidade),]$Umidade = median(dados$Umidade, na.rm = T)
+#remover umidades fora do limite
+dados[dados$Umidade < 0 | dados$Umidade > 100,]$Umidade = median(dados$Umidade)
+#verificar se ainda tem umidade anormal
+dados[dados$Umidade < 0 | dados$Umidade > 100]$Umidade
+#verificar o resumo novamente
+summary(dados$Umidade)
+```
+corrigir vento (NA)
+```{r}
+#verificar o resumo de vento
+summary(dados$Vento)
+#substituir NA pela moda
+dados[is.na(dados$Vento),]$Vento = "FALSO"
+#verificar novamente o resumo
+summary(dados$Vento)
+```
+
