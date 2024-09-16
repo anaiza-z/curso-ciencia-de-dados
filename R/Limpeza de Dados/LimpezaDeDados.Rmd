@@ -1,6 +1,6 @@
 ```{r}
 #importa dados, string vazio como NA, string como fatores
-url <- "https://raw.githubusercontent.com/anaiza-z/curso-ciencia-de-dados/main/R/Limpeza%20de%20Dados/Churn.csv"
+url <- "https://raw.githubusercontent.com/anaiza-z/curso-ciencia-de-dados/main/Dados/Churn.csv"
 dados = read.csv(url, sep = ";", na.strings = "", stringsAsFactors = T)
 head(dados) 
 summary(dados)
