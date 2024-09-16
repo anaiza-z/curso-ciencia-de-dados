@@ -1,7 +1,7 @@
 
 ```{r}
 #carregar arquivo csv
-url <- "https://raw.githubusercontent.com/anaiza-z/curso-ciencia-de-dados/main/R/Limpeza%20de%20Dados/tempo.csv"
+url <- "https://raw.githubusercontent.com/anaiza-z/curso-ciencia-de-dados/main/Dados/tempo.csv"
 dados = read.csv(url, sep = ";", na.strings = "", stringsAsFactors = T)
 #verificar modelo dos dados
 head(dados)
