@@ -1,0 +1,28 @@
+```{r}
+url <- "https://raw.githubusercontent.com/anaiza-z/curso-ciencia-de-dados/main/Dados/anova.csv"
+tratamento = read.csv(url, sep = ";")
+tratamento
+```
+Distribuição dos remedios por hora
+```{r}
+boxplot(tratamento$Horas ~ tratamento$Remedio)
+```
+Análise de variância 
+p > 0,05 (Pr(>F)) mostra que não há evidencias contra a hipotese nula
+```{r}
+an = aov(Horas ~ Remedio, data = tratamento)
+summary(an)
+```
+```{r}
+an = aov(Horas ~ Remedio * Sexo, data = tratamento)
+summary(an)
+```
+Se houver diferença o teste de Tukey é executado
+```{r}
+tukey = TukeyHSD(an)
+tukey
+```
+```{r}
+plot(tukey)
+```
+
